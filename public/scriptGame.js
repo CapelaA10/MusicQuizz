@@ -81,7 +81,6 @@ function askApi() {
             //Passing all questions from the temp array to the final array
             fullQuestions = tempArray;
 
-
             //Change questions
             changeQuestion();
         }
@@ -124,9 +123,10 @@ function helloUser(userUid) {
         higherScoreInTheDb = data;
 
     })
-
 }
 
+//Correct ans to check the question
+var correctAnswer = "";
 
 //Function to change the questions
 function changeQuestion() {
@@ -137,7 +137,7 @@ function changeQuestion() {
     var bttThree = document.getElementById('bttThree');
     var bttFourth = document.getElementById('bttFourth');
 
-
+    //Show and enable the btts to the user click
     showBtts();
     enableBtts();
 
@@ -158,60 +158,42 @@ function changeQuestion() {
     questionNumber.textContent = "Question number: " + randomNumber;
 
     //Check where the question will be and chaging the text in the buttons
-    if (randomRight == 0) {
+    if (randomRight === 0) {
         bttOne.textContent = fullQuestions[randomNumber].correct;
-        console.log(bttOne.textContent);
         bttTwo.textContent = fullQuestions[randomNumber].allIncorrect[0];
         bttThree.textContent = fullQuestions[randomNumber].allIncorrect[1];
         bttFourth.textContent = fullQuestions[randomNumber].allIncorrect[2];
-    } else if (randomRight == 1) {
+    } else if (randomRight === 1) {
         bttOne.textContent = fullQuestions[randomNumber].allIncorrect[0];
         bttTwo.textContent = fullQuestions[randomNumber].correct;
-        console.log(bttTwo.textContent);
         bttThree.textContent = fullQuestions[randomNumber].allIncorrect[1];
         bttFourth.textContent = fullQuestions[randomNumber].allIncorrect[2];
-    } else if (randomRight == 2) {
+    } else if (randomRight === 2) {
         bttOne.textContent = fullQuestions[randomNumber].allIncorrect[0];
         bttTwo.textContent = fullQuestions[randomNumber].allIncorrect[1];
         bttThree.textContent = fullQuestions[randomNumber].correct;
-        console.log(bttThree.textContent);
         bttFourth.textContent = fullQuestions[randomNumber].allIncorrect[2];
-    } else if (randomRight == 3) {
+    } else if (randomRight === 3) {
         bttOne.textContent = fullQuestions[randomNumber].allIncorrect[0];
         bttTwo.textContent = fullQuestions[randomNumber].allIncorrect[1];
         bttThree.textContent = fullQuestions[randomNumber].allIncorrect[2];
         bttFourth.textContent = fullQuestions[randomNumber].correct;
-        console.log(bttFourth.textContent);
     }
 
-    //Buttons events on click
-    bttOne.addEventListener('click', function() {
-        checkAnswer(bttOne.textContent.toString(), fullQuestions[randomNumber].correct.toString());
-    });
-
-    bttTwo.addEventListener('click', function() {
-        checkAnswer(bttTwo.textContent.toString(), fullQuestions[randomNumber].correct.toString());
-    });
-
-    bttThree.addEventListener('click', function() {
-        checkAnswer(bttThree.textContent.toString(), fullQuestions[randomNumber].correct.toString());
-    });
-
-    bttFourth.addEventListener('click', function() {
-        checkAnswer(bttFourth.textContent.toString(), fullQuestions[randomNumber].correct.toString());
-    });
+    //Get the correct answer
+    correctAnswer = fullQuestions[randomNumber].correct.toString();
 }
 
 //Function to check if the answer is right
-function checkAnswer(answerUser, correctA) {
-
+function checkAnswer(answerBtt) {
+    var correctA = correctAnswer;
+    var answerUser = answerBtt.textContent;
 
     //If the answer is correct
-    if (answerUser == correctA) {
+    if (answerUser === correctA) {
 
-
+        //Disable and hidden the buttons to the user
         disableBtts();
-
         hiddenBtts();
 
         //Add one to score
@@ -225,11 +207,11 @@ function checkAnswer(answerUser, correctA) {
 
     } else {
 
-
+        //Disable and hidden the buttons to the user
         disableBtts();
-
         hiddenBtts();
 
+        //Firebase get the user status and ref to db
         firebase.auth().onAuthStateChanged(function(user) {
             if (user) {
 
@@ -253,6 +235,9 @@ function checkAnswer(answerUser, correctA) {
                                 registerHighScore(scoreN, user.uid);
                             }
                         });
+
+                        //Change the higher score in the game
+                        changeHighScoreFinal(scoreN);
                     }
                 })
             }
@@ -271,14 +256,21 @@ function registerHighScore(highScoreNew, userUid) {
 
 //Function to change the score now
 function changeScoreNow(scoreNow) {
+
+    //Get text area
     var textArea = document.getElementById('scoreNow');
 
+    //Change the text
     textArea.textContent = "Score Now: " + scoreNow;
+
 }
 
 //Function to reset the game score
 function resetGlobalScore() {
+
+    //Set global score to 0
     scoreN = 0;
+
 }
 
 //Function reset the game 
@@ -292,12 +284,6 @@ function resetGame() {
 
     //Var last score
     var scoreLast = "Game over, Score: " + scoreN;
-
-    //Buttons
-    var bttOne = document.getElementById('bttOne');
-    var bttTwo = document.getElementById('bttTwo');
-    var bttThree = document.getElementById('bttThree');
-    var bttFourth = document.getElementById('bttFourth');
 
     //Question var
     var questionVar = document.getElementById('questionToA');
@@ -326,6 +312,7 @@ function resetBoxes() {
     changeQuestion();
 }
 
+//Function to disable the buttons
 function disableBtts() {
 
     //Buttons
@@ -334,8 +321,7 @@ function disableBtts() {
     var bttThree = document.getElementById('bttThree');
     var bttFourth = document.getElementById('bttFourth');
 
-
-
+    //Disable the buttons
     bttOne.disabled = true;
     bttTwo.disabled = true;
     bttThree.disabled = true;
@@ -343,6 +329,7 @@ function disableBtts() {
 
 }
 
+//Function to enable the buttons
 function enableBtts() {
 
     //Buttons
@@ -351,12 +338,14 @@ function enableBtts() {
     var bttThree = document.getElementById('bttThree');
     var bttFourth = document.getElementById('bttFourth');
 
+    //Enable the buttons
     bttOne.disabled = false;
     bttTwo.disabled = false
     bttThree.disabled = false;
     bttFourth.disabled = false;
 }
 
+//Function to hide the btts
 function hiddenBtts() {
 
     //Buttons
@@ -365,6 +354,7 @@ function hiddenBtts() {
     var bttThree = document.getElementById('bttThree');
     var bttFourth = document.getElementById('bttFourth');
 
+    //Hide the buttons
     bttOne.hidden = true;
     bttTwo.hidden = true;
     bttThree.hidden = true;
@@ -372,7 +362,7 @@ function hiddenBtts() {
 
 }
 
-
+//Show btts
 function showBtts() {
 
     //Buttons
@@ -381,9 +371,23 @@ function showBtts() {
     var bttThree = document.getElementById('bttThree');
     var bttFourth = document.getElementById('bttFourth');
 
+    //Show btts
     bttOne.hidden = false;
     bttTwo.hidden = false;
     bttThree.hidden = false;
     bttFourth.hidden = false;
 
+}
+
+//Function to change the higher score
+function changeHighScoreFinal(score) {
+
+    //High score in the user db
+    var highScoreInTheDb = document.getElementById('higherScoreDb');
+
+    //Change the high Score in the user interface
+    highScoreInTheDb.textContent = "Higher Score: " + score;
+
+    //User not logged info
+    alert("Congratulations your high score has changed");
 }

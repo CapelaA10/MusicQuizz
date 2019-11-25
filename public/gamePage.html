@@ -48,6 +48,7 @@
 </head>
 
 <body>
+
     <!--Nav Bar with image-->
     <nav class="navbar navbar-light bg-light">
 
@@ -59,13 +60,16 @@
 
     </nav>
 
-
+    <!--Divs for the question and answers-->
     <div class="container">
         <div class="row">
+
+            <!--Quesiton-->
             <div class="col-12 text-center">
                 <p id="questionToA">Question: #question</p>
             </div>
 
+            <!--Game Info-->
             <div class="col-4 text-center">
                 <div id="scoreNow">Score Now : #number</div>
             </div>
@@ -76,18 +80,19 @@
                 <div id="higherScoreDb">HighScore: #number </div>
             </div>
 
+            <!--Answers-->
             <div class="col-12 align-content-center">
                 <div class="col-12">
-                    <button type="button" class="btn btn-secondary btn-lg btn-block" id="bttOne">Answer #1</button>
+                    <button type="button" class="btn btn-secondary btn-lg btn-block" id="bttOne" onclick="checkAnswer(this)">Answer #1</button>
                 </div>
                 <div class="col-12">
-                    <button type="button" class="btn btn-secondary btn-lg btn-block" id="bttTwo">Answer #2</button>
+                    <button type="button" class="btn btn-secondary btn-lg btn-block" id="bttTwo" onclick="checkAnswer(this)">Answer #2</button>
                 </div>
                 <div class="col-12">
-                    <button type="button" class="btn btn-secondary btn-lg btn-block" id="bttThree">Answer #3</button>
+                    <button type="button" class="btn btn-secondary btn-lg btn-block" id="bttThree" onclick="checkAnswer(this)">Answer #3</button>
                 </div>
                 <div class="col-12">
-                    <button type="button" class="btn btn-secondary btn-lg btn-block" id="bttFourth">Answer #4</button>
+                    <button type="button" class="btn btn-secondary btn-lg btn-block" id="bttFourth" onclick="checkAnswer(this)">Answer #4</button>
                 </div>
             </div>
         </div>
