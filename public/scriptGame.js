@@ -12,6 +12,9 @@ $(function() {
             //Hello to the user
             helloUser(user.uid);
 
+            //Get higher score in the db
+            getHigherUserInTheDb();
+
         } else {
 
             //User not logged info
@@ -238,6 +241,9 @@ function checkAnswer(answerBtt) {
 
                         //Change the higher score in the game
                         changeHighScoreFinal(scoreN);
+
+                        //Check and update the higher score in the db 
+                        updateHigherScoreInTheDbData(scoreN);
                     }
                 })
             }
@@ -390,4 +396,95 @@ function changeHighScoreFinal(score) {
 
     //User not logged info
     alert("Congratulations your high score has changed");
+}
+
+//Function to get the higher score and user from the db
+function getHigherUserInTheDb() {
+
+    //Text area
+    var textAreaHigh = document.getElementById('higherScoreDbData');
+
+    //Ref to the username
+    var ref = database.ref('HigherUser/HigherUsername');
+
+    //Get the data of the username
+    ref.once("value", function(snapshot) {
+
+        //Get Data
+        var data = snapshot.val();
+
+        //Change text
+        textAreaHigh.textContent = "Higher Score From : " + data;
+
+    })
+
+    //Higher score
+    ref = database.ref('HigherUser/HigherScore');
+
+    //Get the data of the higher score
+    ref.once("value", function(snapshot) {
+
+        //Get Data
+        var data = snapshot.val();
+
+        //Change text
+        textAreaHigh.textContent += ", Is: " + data;
+    })
+}
+
+//Function to update the higher score in the db from the top user player
+function updateHigherScoreInTheDbData(scoreNow) {
+
+    //Higher score
+    ref = database.ref('HigherUser/HigherScore');
+
+    //Get the data of the higher score
+    ref.once("value", function(snapshot) {
+
+        //Get Data
+        var data = snapshot.val();
+
+        //If the data in the db is lower then the acutual data score
+        if (data < scoreNow) {
+
+            //Firebase get user
+            firebase.auth().onAuthStateChanged(function(user) {
+                if (user) {
+
+                    //Ref to the username
+                    var ref = database.ref('users/' + user.uid + '/username');
+
+                    //Get the data of the username
+                    ref.once("value", function(snapshot) {
+
+                        //Get Data
+                        var data = snapshot.val();
+
+                        //Database ref higher score
+                        ref = database.ref('HigherUser/HigherScore');
+
+                        //Change to score now
+                        ref.set(scoreNow);
+
+                        //Database ref to higher username
+                        ref = database.ref('HigherUser/HigherUsername');
+
+                        //Set the username
+                        ref.set(data);
+                    })
+
+                    getHigherUserInTheDb()
+
+                } else {
+
+                    //User not logged info
+                    alert("User not logged in");
+
+                    //Game window
+                    window.open("index.html");
+
+                }
+            });
+        }
+    })
 }
