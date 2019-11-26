@@ -204,8 +204,6 @@ function checkAnswer(answerBtt) {
     //Check the timer
     if (timer >= 0) {
 
-        timer = 10;
-
         //Check if the user has a answer
         if (answerUser != null) {
 
@@ -261,14 +259,14 @@ function checkAnswer(answerBtt) {
 
                                 //Check and update the higher score in the db 
                                 updateHigherScoreInTheDbData(scoreN);
+
                             }
+
+                            //Reset game
+                            setTimeout(resetGame(), 2500);
                         })
                     }
                 });
-
-                //Reset game
-                resetGame();
-
             }
         } else {
             alert("No answer!!");
@@ -331,14 +329,18 @@ function resetGame() {
     //Question var to game over
     questionVar.textContent = scoreLast;
 
-    // stop for sometime if needed
-    setTimeout(resetBoxes(), 2500);
+    //Alert the user
+    alert(scoreLast);
+
+    //Reset the boxes in the game 'div and text'
+    resetBoxes()
 }
 
 //Reset the boxes in the all game
 function resetBoxes() {
+
     //Reseting the global score
-    resetGlobalScore();
+    setTimeout(resetGlobalScore(), 3000);
 
     //Change the score now
     changeScoreNow(scoreN);
@@ -520,12 +522,43 @@ function updateHigherScoreInTheDbData(scoreNow) {
 }
 
 function fullTimer() {
-    timer = 10;
+
+    //Buttons
+    var bttOne = document.getElementById('bttOne');
+    var bttTwo = document.getElementById('bttTwo');
+    var bttThree = document.getElementById('bttThree');
+    var bttFourth = document.getElementById('bttFourth');
+
+
+    timer = 9;
+
     let tirmerGame = setInterval(() => {
         document.getElementById("timerGame").textContent = timer;
         timer--;
+
+        bttOne.addEventListener('click', function() {
+            clearInterval(tirmerGame);
+            return;
+        });
+
+        bttTwo.addEventListener('click', function() {
+            clearInterval(tirmerGame);
+            return;
+        });
+
+        bttThree.addEventListener('click', function() {
+            clearInterval(tirmerGame);
+            return;
+        });
+
+        bttFourth.addEventListener('click', function() {
+            clearInterval(tirmerGame);
+            return;
+        });
+
     }, 1000);
-    setTimeout(() => { clearInterval(tirmerGame); }, 10000);
-    console.log("Saiu");
+
+    setTimeout(() => { clearInterval(tirmerGame); }, 11000);
+
 
 }
