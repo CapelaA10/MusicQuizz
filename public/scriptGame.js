@@ -4,6 +4,12 @@ var database = firebase.database();
 //Get higher Score
 var higherScoreInTheDb = 0;
 
+//Timer var
+var timerGame;
+
+//Timer time
+var tempTimer = 10;
+
 //On load the page
 $(function() {
     firebase.auth().onAuthStateChanged(function(user) {
@@ -185,74 +191,93 @@ function changeQuestion() {
 
     //Get the correct answer
     correctAnswer = fullQuestions[randomNumber].correct.toString();
+
+    //Start timer
+    setTimeout(timerTime(), 500);
+
 }
 
 //Function to check if the answer is right
 function checkAnswer(answerBtt) {
+
+    //Correct and answer
     var correctA = correctAnswer;
     var answerUser = answerBtt.textContent;
 
-    //If the answer is correct
-    if (answerUser === correctA) {
+    //Check the timer
+    if (timerGame == 0) {
 
-        //Disable and hidden the buttons to the user
-        disableBtts();
-        hiddenBtts();
-
-        //Add one to score
-        scoreN += 1;
-
-        //Change the score
-        changeScoreNow(scoreN);
-
-        //Change the question
-        changeQuestion();
-
-    } else {
-
-        //Disable and hidden the buttons to the user
-        disableBtts();
-        hiddenBtts();
-
-        //Firebase get the user status and ref to db
-        firebase.auth().onAuthStateChanged(function(user) {
-            if (user) {
-
-                //Ref to the highScore
-                var ref = database.ref('users/' + user.uid + '/highScore');
-
-                //Get the data of the highScore
-                ref.once("value", function(snapshot) {
-
-                    //Var data of the ref
-                    var data = snapshot.val();
-
-                    //If the score is higher then the higher
-                    if (scoreN > data) {
-
-                        //Get user and if the user exist then resgister the new highscore
-                        firebase.auth().onAuthStateChanged(function(user) {
-                            if (user) {
-
-                                //Register the new high score
-                                registerHighScore(scoreN, user.uid);
-                            }
-                        });
-
-                        //Change the higher score in the game
-                        changeHighScoreFinal(scoreN);
-
-                        //Check and update the higher score in the db 
-                        updateHigherScoreInTheDbData(scoreN);
-                    }
-                })
-            }
-        });
+        //Alert the user game lost because of the timer
+        alert("Game lost!! No time!!");
 
         //Reset game
         resetGame();
 
+    } else {
+
+        //If the answer is correct
+        if (answerUser === correctA) {
+
+            //Disable and hidden the buttons to the user
+            disableBtts();
+            hiddenBtts();
+
+            //Add one to score
+            scoreN += 1;
+
+            //Change the score
+            changeScoreNow(scoreN);
+
+            //Change the question
+            changeQuestion();
+
+        } else {
+
+            //Disable and hidden the buttons to the user
+            disableBtts();
+            hiddenBtts();
+
+            //Firebase get the user status and ref to db
+            firebase.auth().onAuthStateChanged(function(user) {
+                if (user) {
+
+                    //Ref to the highScore
+                    var ref = database.ref('users/' + user.uid + '/highScore');
+
+                    //Get the data of the highScore
+                    ref.once("value", function(snapshot) {
+
+                        //Var data of the ref
+                        var data = snapshot.val();
+
+                        //If the score is higher then the higher
+                        if (scoreN > data) {
+
+                            //Get user and if the user exist then resgister the new highscore
+                            firebase.auth().onAuthStateChanged(function(user) {
+                                if (user) {
+
+                                    //Register the new high score
+                                    registerHighScore(scoreN, user.uid);
+                                }
+                            });
+
+                            //Change the higher score in the game
+                            changeHighScoreFinal(scoreN);
+
+                            //Check and update the higher score in the db 
+                            updateHigherScoreInTheDbData(scoreN);
+                        }
+                    })
+                }
+            });
+
+            //Reset game
+            resetGame();
+
+        }
     }
+
 }
 
 //Register the highScore
@@ -304,9 +329,11 @@ function resetGame() {
     questionVar.textContent = scoreLast;
 
     // stop for sometime if needed
-    setTimeout(resetBoxes, 5000);
+    setTimeout(resetBoxes, 2500);
+
 }
 
+//Reset the boxes in the all game
 function resetBoxes() {
     //Reseting the global score
     resetGlobalScore();
@@ -473,6 +500,7 @@ function updateHigherScoreInTheDbData(scoreNow) {
                         ref.set(data);
                     })
 
+                    //Change again the user higher score text from the db 
                     getHigherUserInTheDb()
 
                 } else {
@@ -487,4 +515,41 @@ function updateHigherScoreInTheDbData(scoreNow) {
             });
         }
     })
+}
+
+//Timer function
+function timerTime() {
+
+    //Timer game with the interval
+    timerGame = setInterval(function() {
+
+        //Change the user ui so the user se the timer
+        document.getElementById("timerGame").textContent = tempTimer;
+
+        //Reducing the timer
+        tempTimer--;
+
+        console.log(timerGame);
+        console.log(tempTimer);
+
+        if (tempTimer == 0) {
+            console.log("if 0");
+
+            stopTimer();
+            resetGame();
+        }
+
+        function stopTimer() {
+
+            //Reset game
+            resetGame();
+
+            clearInterval(timerGame);
+
+            timerGame = 0;
+
+            tempTimer = 10;
+        }
+
+    }, 1000);
 }
