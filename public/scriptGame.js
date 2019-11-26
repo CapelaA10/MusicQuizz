@@ -269,21 +269,31 @@ function checkAnswer(answerBtt) {
                 });
             }
         } else {
+
+            //Alert the user
             alert("No answer!!");
 
+            //Set the timeout to reset the game
             setTimeout(resetGame(), 2500);
+
         }
     } else {
+
+        //Alert the user 
         alert("No time!!");
 
+        //Set the timeout to reset the game
         setTimeout(resetGame(), 2500);
-    }
 
+    }
 }
 
 //Register the highScore
 function registerHighScore(highScoreNew, userUid) {
+
+    //Register in the db the highscore
     database.ref().child('users/' + userUid + "/highScore").set(highScoreNew);
+
 }
 
 //Function to change the score now
@@ -334,6 +344,7 @@ function resetGame() {
 
     //Reset the boxes in the game 'div and text'
     resetBoxes()
+
 }
 
 //Reset the boxes in the all game
@@ -347,6 +358,7 @@ function resetBoxes() {
 
     //Reset the questions
     changeQuestion();
+
 }
 
 //Function to disable the buttons
@@ -427,6 +439,7 @@ function changeHighScoreFinal(score) {
 
     //User not logged info
     alert("Congratulations your high score has changed");
+
 }
 
 //Function to get the higher score and user from the db
@@ -521,6 +534,7 @@ function updateHigherScoreInTheDbData(scoreNow) {
     })
 }
 
+//Function for the full timer worki
 function fullTimer() {
 
     //Buttons
@@ -529,36 +543,62 @@ function fullTimer() {
     var bttThree = document.getElementById('bttThree');
     var bttFourth = document.getElementById('bttFourth');
 
-
+    //Reset the timer to 9 sec
     timer = 9;
 
+    //Set interval function
     let tirmerGame = setInterval(() => {
+
+        //Change text for the text timer
         document.getElementById("timerGame").textContent = timer;
+
+        //Reducing timer
         timer--;
 
+        //Btt click
         bttOne.addEventListener('click', function() {
+
+            //Clear the interval so he dosent creat another
             clearInterval(tirmerGame);
+
+            //Return to out of the function
             return;
+
         });
 
+        //Btt click
         bttTwo.addEventListener('click', function() {
+
+            //Clear the interval so he dosent creat another
             clearInterval(tirmerGame);
+
+            //Return to out of the function
             return;
+
         });
 
+        //Btt click
         bttThree.addEventListener('click', function() {
+
+            //Clear the interval so he dosent creat another
             clearInterval(tirmerGame);
             return;
         });
 
+        //Btt click
         bttFourth.addEventListener('click', function() {
+
+            //Clear the interval so he dosent creat another
             clearInterval(tirmerGame);
+
+            //Return to out of the function
             return;
+
         });
 
     }, 1000);
 
+    //Setting the full timeout so if the user dosen´t give a answer
     setTimeout(() => { clearInterval(tirmerGame); }, 11000);
-
 
 }
