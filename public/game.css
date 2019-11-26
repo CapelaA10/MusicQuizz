@@ -1,3 +1,10 @@
+/*Body color*/
+
+body {
+    background-color: rgb(255, 160, 122);
+}
+
+
 /*Question size*/
 
 #questionToA {
@@ -5,16 +12,10 @@
 }
 
 
-/*Login bbt*/
+/*Size icon footers*/
 
-#loginBtt {
-    margin: 8px;
-}
-
-
-/*Register btt*/
-
-#registerBtt {
+#social {
+    font-size: 50px;
     margin: 8px;
 }
 
@@ -24,4 +25,27 @@
 #sizeIcon {
     font-size: 50px;
     margin: 8px;
+}
+
+
+/*Div with stats*/
+
+#divHigher {
+    color: white;
+    margin-top: 8px;
+}
+
+
+/*Shadow in stats*/
+
+#stats {
+    text-shadow: 2px 2px 4px rgb(255, 160, 122);
+    color: white;
+}
+
+
+/*Copyright text*/
+
+#copyRightT {
+    color: white;
 }

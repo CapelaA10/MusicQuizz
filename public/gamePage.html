@@ -35,7 +35,7 @@
 <body>
 
     <!--Nav Bar with image-->
-    <nav class="navbar navbar-light bg-light">
+    <nav class="navbar navbar-dark bg-dark">
 
         <a class="navbar-brand" href="#">
 
@@ -47,11 +47,15 @@
 
 
     <!--Div with the higher score in the db-->
-    <div class="col-12 text-center">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 text-center bg-primary" id="divHigher">
 
-        <!--Paragraph-->
-        <p id="higherScoreDbData">Higher Score From : #Username, Is #Number</p>
+                <!--Paragraph-->
+                <p id="higherScoreDbData">Higher Score From : #Username, Is #Number</p>
 
+            </div>
+        </div>
     </div>
 
     <!--Divs for the question and answers-->
@@ -64,36 +68,36 @@
             </div>
 
             <!--Game Info-->
-            <div class="col-4 text-center">
+            <div class="col-4 text-center bg-primary" id="stats">
                 <div id="scoreNow">Score Now : #number</div>
             </div>
-            <div class="col-4 text-center">
+            <div class="col-4 text-center bg-primary" id="stats">
                 <div id="questionNumber">Question #number</div>
             </div>
-            <div class="col-4 text-center">
+            <div class="col-4 text-center bg-primary" id="stats">
                 <div id="higherScoreDb">HighScore: #number </div>
             </div>
 
             <!--Answers-->
-            <div class="col-12 align-content-center">
-                <div class="col-12">
-                    <button type="button" class="btn btn-secondary btn-lg btn-block" id="bttOne" onclick="checkAnswer(this)">Answer #1</button>
+            <div class="col-12 align-content-center ">
+                <div class="col-12 ">
+                    <button type="button " class="btn btn-secondary btn-lg btn-block " id="bttOne" onclick="checkAnswer(this) ">Answer #1</button>
                 </div>
-                <div class="col-12">
-                    <button type="button" class="btn btn-secondary btn-lg btn-block" id="bttTwo" onclick="checkAnswer(this)">Answer #2</button>
+                <div class="col-12 ">
+                    <button type="button " class="btn btn-secondary btn-lg btn-block " id="bttTwo" onclick="checkAnswer(this) ">Answer #2</button>
                 </div>
-                <div class="col-12">
-                    <button type="button" class="btn btn-secondary btn-lg btn-block" id="bttThree" onclick="checkAnswer(this)">Answer #3</button>
+                <div class="col-12 ">
+                    <button type="button " class="btn btn-secondary btn-lg btn-block " id="bttThree" onclick="checkAnswer(this) ">Answer #3</button>
                 </div>
-                <div class="col-12">
-                    <button type="button" class="btn btn-secondary btn-lg btn-block" id="bttFourth" onclick="checkAnswer(this)">Answer #4</button>
+                <div class="col-12 ">
+                    <button type="button " class="btn btn-secondary btn-lg btn-block " id="bttFourth" onclick="checkAnswer(this) ">Answer #4</button>
                 </div>
             </div>
         </div>
     </div>
 
     <!--Div with the timer-->
-    <div class="col-12 text-center">
+    <div class="col-12 text-center ">
 
         <!--Paragraph-->
         <h1 id="timerGame">10</h1>
@@ -112,49 +116,49 @@
                     <div class="social">
 
                         <!--Social media icon with ref-->
-                        <a href="https://www.instagram.com/capela__/?hl=pt">
+                        <a href="https://www.instagram.com/capela__/?hl=pt ">
                             <i class="icon ion-social-instagram" id="sizeIcon"></i>
                         </a>
-                        <a href="https://www.linkedin.com/in/pedro-capela10/">
+                        <a href="https://www.linkedin.com/in/pedro-capela10/ ">
                             <i class="icon ion-social-linkedin" id="sizeIcon"></i>
                         </a>
-                        <a href="https://twitter.com/commitCapela" id="sizeIcon">
+                        <a href="https://twitter.com/commitCapela " id="sizeIcon ">
                             <i class="icon ion-social-twitter" id="sizeIcon"></i>
                         </a>
-                        <a href="https://www.facebook.com/pedrok4pels">
+                        <a href="https://www.facebook.com/pedrok4pels ">
                             <i class="icon ion-social-facebook" id="sizeIcon"></i>
                         </a>
 
                     </div>
                 </div>
 
-                <!--Div with the copyright actions-->
-                <div class="col-12 text-center">
-
-                    <!--CopyRight Paragraph-->
-                    <p class="copyright">Pedro Capela© 2019</p>
-
-                </div>
-
             </footer>
+
+            <!--Div with the copyright actions-->
+            <div class="col-12 text-center bg-primary">
+
+                <!--CopyRight Paragraph-->
+                <p class="copyright" id="copyRightT">Pedro Capela© 2019</p>
+
+            </div>
 
         </div>
     </div>
 
     <!--Script To icons footer-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.bundle.min.js"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js "></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.bundle.min.js "></script>
 
     <!--Scripts BootStrap-->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js " integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo " crossorigin="anonymous "></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js " integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1 " crossorigin="anonymous "></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js " integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM " crossorigin="anonymous "></script>
 
+    <!--Jquery-->
+    <script type="text/javascript " src="https://code.jquery.com/jquery-3.4.1.min.js "></script>
 
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <!--Script Game-->
-    <script src="scriptGame.js" async defer></script>
+    <script src="scriptGame.js " async defer></script>
 
 </body>
 
