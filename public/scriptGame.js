@@ -4,11 +4,8 @@ var database = firebase.database();
 //Get higher Score
 var higherScoreInTheDb = 0;
 
-//Timer var
-var timerGame;
-
-//Timer time
-var tempTimer = 10;
+//Var for the time
+var timer = 10;
 
 //On load the page
 $(function() {
@@ -192,8 +189,8 @@ function changeQuestion() {
     //Get the correct answer
     correctAnswer = fullQuestions[randomNumber].correct.toString();
 
-    //Start timer
-    setTimeout(timerTime(), 500);
+    //Change time
+    fullTimer();
 
 }
 
@@ -205,77 +202,83 @@ function checkAnswer(answerBtt) {
     var answerUser = answerBtt.textContent;
 
     //Check the timer
-    if (timerGame == 0) {
+    if (timer >= 0) {
 
-        //Alert the user game lost because of the timer
-        alert("Game lost!! No time!!");
+        timer = 10;
 
-        //Reset game
-        resetGame();
+        //Check if the user has a answer
+        if (answerUser != null) {
 
-    } else {
+            //If the answer is correct
+            if (answerUser === correctA) {
 
-        //If the answer is correct
-        if (answerUser === correctA) {
+                //Disable and hidden the buttons to the user
+                disableBtts();
+                hiddenBtts();
 
-            //Disable and hidden the buttons to the user
-            disableBtts();
-            hiddenBtts();
+                //Add one to score
+                scoreN += 1;
 
-            //Add one to score
-            scoreN += 1;
+                //Change the score
+                changeScoreNow(scoreN);
 
-            //Change the score
-            changeScoreNow(scoreN);
+                //Change the question
+                changeQuestion();
 
-            //Change the question
-            changeQuestion();
+            } else {
 
+                //Disable and hidden the buttons to the user
+                disableBtts();
+                hiddenBtts();
+
+                //Firebase get the user status and ref to db
+                firebase.auth().onAuthStateChanged(function(user) {
+                    if (user) {
+
+                        //Ref to the highScore
+                        var ref = database.ref('users/' + user.uid + '/highScore');
+
+                        //Get the data of the highScore
+                        ref.once("value", function(snapshot) {
+
+                            //Var data of the ref
+                            var data = snapshot.val();
+
+                            //If the score is higher then the higher
+                            if (scoreN > data) {
+
+                                //Get user and if the user exist then resgister the new highscore
+                                firebase.auth().onAuthStateChanged(function(user) {
+                                    if (user) {
+
+                                        //Register the new high score
+                                        registerHighScore(scoreN, user.uid);
+                                    }
+                                });
+
+                                //Change the higher score in the game
+                                changeHighScoreFinal(scoreN);
+
+                                //Check and update the higher score in the db 
+                                updateHigherScoreInTheDbData(scoreN);
+                            }
+                        })
+                    }
+                });
+
+                //Reset game
+                resetGame();
+
+            }
         } else {
+            alert("No answer!!");
 
-            //Disable and hidden the buttons to the user
-            disableBtts();
-            hiddenBtts();
-
-            //Firebase get the user status and ref to db
-            firebase.auth().onAuthStateChanged(function(user) {
-                if (user) {
-
-                    //Ref to the highScore
-                    var ref = database.ref('users/' + user.uid + '/highScore');
-
-                    //Get the data of the highScore
-                    ref.once("value", function(snapshot) {
-
-                        //Var data of the ref
-                        var data = snapshot.val();
-
-                        //If the score is higher then the higher
-                        if (scoreN > data) {
-
-                            //Get user and if the user exist then resgister the new highscore
-                            firebase.auth().onAuthStateChanged(function(user) {
-                                if (user) {
-
-                                    //Register the new high score
-                                    registerHighScore(scoreN, user.uid);
-                                }
-                            });
-
-                            //Change the higher score in the game
-                            changeHighScoreFinal(scoreN);
-
-                            //Check and update the higher score in the db 
-                            updateHigherScoreInTheDbData(scoreN);
-                        }
-                    })
-                }
-            });
-
-            //Reset game
-            resetGame();
-
+            setTimeout(resetGame(), 2500);
         }
+    } else {
+        alert("No time!!");
+
+        setTimeout(resetGame(), 2500);
     }
 
 }
@@ -329,8 +332,7 @@ function resetGame() {
     questionVar.textContent = scoreLast;
 
     // stop for sometime if needed
-    setTimeout(resetBoxes, 2500);
-
+    setTimeout(resetBoxes(), 2500);
 }
 
 //Reset the boxes in the all game
@@ -517,39 +519,13 @@ function updateHigherScoreInTheDbData(scoreNow) {
     })
 }
 
-//Timer function
-function timerTime() {
-
-    //Timer game with the interval
-    timerGame = setInterval(function() {
-
-        //Change the user ui so the user se the timer
-        document.getElementById("timerGame").textContent = tempTimer;
-
-        //Reducing the timer
-        tempTimer--;
-
-        console.log(timerGame);
-        console.log(tempTimer);
-
-        if (tempTimer == 0) {
-            console.log("if 0");
-
-            stopTimer();
-            resetGame();
-        }
-
-        function stopTimer() {
-
-            //Reset game
-            resetGame();
-
-            clearInterval(timerGame);
-
-            timerGame = 0;
-
-            tempTimer = 10;
-        }
-
+function fullTimer() {
+    timer = 10;
+    let tirmerGame = setInterval(() => {
+        document.getElementById("timerGame").textContent = timer;
+        timer--;
     }, 1000);
+    setTimeout(() => { clearInterval(tirmerGame); }, 10000);
+    console.log("Saiu");
+
 }
