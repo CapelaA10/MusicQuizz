@@ -1,7 +1,7 @@
 /*Body color*/
 
 body {
-    background-color: rgb(255, 160, 122);
+    background-color: #314F6B;
 }
 
 
@@ -25,14 +25,21 @@ body {
 #sizeIcon {
     font-size: 50px;
     margin: 8px;
+    color: #042357;
 }
 
 
 /*Div with stats*/
 
 #divHigher {
+    background-color: #042357;
+    text-shadow: 2px 2px 4px rgb(255, 160, 122);
     color: white;
-    margin-top: 8px;
+    text-align: center;
+    align-items: center;
+    border-color: #0B0E29;
+    border-style: solid;
+    border-width: 2px;
 }
 
 
@@ -40,12 +47,65 @@ body {
 
 #stats {
     text-shadow: 2px 2px 4px rgb(255, 160, 122);
+    background-color: #042357;
     color: white;
+    border-color: #0B0E29;
+    border-style: solid;
+    border-radius: 2px;
 }
 
 
 /*Copyright text*/
 
 #copyRightT {
+    color: white;
+}
+
+
+/*Timer style*/
+
+#timerGame {
+    background-color: #042357;
+    color: white;
+    border-color: #0B0E29;
+    border-style: solid;
+    border-width: 2px;
+}
+
+
+/*Btts style*/
+
+#bttOne {
+    background-color: #32456B;
+    border-color: #0B0E29;
+    border-style: solid;
+    border-width: 2px;
+}
+
+#bttTwo {
+    background-color: #32456B;
+    border-color: #0B0E29;
+    border-style: solid;
+    border-width: 2px;
+}
+
+#bttThree {
+    background-color: #32456B;
+    border-color: #0B0E29;
+    border-style: solid;
+    border-width: 2px;
+}
+
+#bttFourth {
+    background-color: #32456B;
+    border-color: #0B0E29;
+    border-style: solid;
+    border-width: 2px;
+}
+
+
+/*Question*/
+
+#questionToA {
     color: white;
 }

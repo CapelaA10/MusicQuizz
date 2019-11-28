@@ -45,11 +45,10 @@
 
     </nav>
 
-
     <!--Div with the higher score in the db-->
-    <div class="container-fluid">
+    <div class="container">
         <div class="row">
-            <div class="col-12 text-center bg-primary" id="divHigher">
+            <div class="col-10 offset-1 text-center" id="divHigher">
 
                 <!--Paragraph-->
                 <p id="higherScoreDbData">Higher Score From : #Username, Is #Number</p>
@@ -68,23 +67,23 @@
             </div>
 
             <!--Game Info-->
-            <div class="col-4 text-center bg-primary" id="stats">
+            <div class="col-3 offset-1 text-center" id="stats">
                 <div id="scoreNow">Score Now : #number</div>
             </div>
-            <div class="col-4 text-center bg-primary" id="stats">
+            <div class="col-4 text-center" id="stats">
                 <div id="questionNumber">Question #number</div>
             </div>
-            <div class="col-4 text-center bg-primary" id="stats">
+            <div class="col-3 text-center" id="stats">
                 <div id="higherScoreDb">HighScore: #number </div>
             </div>
 
             <!--Answers-->
-            <div class="col-12 align-content-center ">
-                <div class="col-12 ">
+            <div class="col-12">
+                <div class="col-12">
                     <button type="button " class="btn btn-secondary btn-lg btn-block " id="bttOne" onclick="checkAnswer(this) ">Answer #1</button>
                 </div>
                 <div class="col-12 ">
-                    <button type="button " class="btn btn-secondary btn-lg btn-block " id="bttTwo" onclick="checkAnswer(this) ">Answer #2</button>
+                    <button type="button " class="btn btn-secondary btn-lg btn-block  " id="bttTwo" onclick="checkAnswer(this) ">Answer #2</button>
                 </div>
                 <div class="col-12 ">
                     <button type="button " class="btn btn-secondary btn-lg btn-block " id="bttThree" onclick="checkAnswer(this) ">Answer #3</button>
@@ -94,18 +93,18 @@
                 </div>
             </div>
         </div>
-    </div>
 
-    <!--Div with the timer-->
-    <div class="col-12 text-center ">
+        <!--Div with the timer-->
+        <div class="col-12 text-center">
 
-        <!--Paragraph-->
-        <h1 id="timerGame">10</h1>
+            <!--Paragraph-->
+            <h1 id="timerGame">10</h1>
 
+        </div>
     </div>
 
     <!--Full footer-->
-    <div class="container-fluid">
+    <div class="container">
         <div class="row">
 
             <!--Footer tag with text center-->
@@ -135,7 +134,7 @@
             </footer>
 
             <!--Div with the copyright actions-->
-            <div class="col-12 text-center bg-primary">
+            <div class="col-12 text-center">
 
                 <!--CopyRight Paragraph-->
                 <p class="copyright" id="copyRightT">Pedro Capela© 2019</p>

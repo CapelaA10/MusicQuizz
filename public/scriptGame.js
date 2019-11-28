@@ -5,7 +5,7 @@ var database = firebase.database();
 var higherScoreInTheDb = 0;
 
 //Var for the time
-var timer = 10;
+var timer = 9;
 
 //On load the page
 $(function() {
@@ -231,6 +231,8 @@ function checkAnswer(answerBtt) {
 
                 //Firebase get the user status and ref to db
                 firebase.auth().onAuthStateChanged(function(user) {
+
+                    //If the user exists
                     if (user) {
 
                         //Ref to the highScore
@@ -596,9 +598,9 @@ function fullTimer() {
 
         });
 
-    }, 1000);
+    }, 1100);
 
     //Setting the full timeout so if the user dosen´t give a answer
-    setTimeout(() => { clearInterval(tirmerGame); }, 11000);
+    setTimeout(() => { clearInterval(tirmerGame); }, 11100);
 
 }

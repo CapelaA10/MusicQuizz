@@ -1,7 +1,7 @@
 /*Body color*/
 
 body {
-    background-color: rgb(255, 160, 122);
+    background-color: #314F6B;
 }
 
 
@@ -23,7 +23,27 @@ body {
 
 #sizeIcon {
     font-size: 50px;
+    text-decoration: none;
     margin: 8px;
+    color: #042357;
+}
+
+
+/*Login Btt style*/
+
+#loginBtt {
+    background-color: #042357;
+    color: white;
+    border: #042357;
+}
+
+
+/*Register btt style*/
+
+#registerBtt {
+    background-color: #042357;
+    color: white;
+    border: #042357;
 }
 
 
@@ -31,4 +51,15 @@ body {
 
 #copyRightT {
     color: white;
+}
+
+
+/*Style for the register and login tab*/
+
+#home-tab {
+    color: #042357;
+}
+
+#profile-tab {
+    color: #042357;
 }
